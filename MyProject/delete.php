@@ -1,4 +1,15 @@
 <?php
+    session_start(); 
+
+
+    if (!isset($_SESSION['username'])) {
+        header("Location: login.php"); 
+        exit();
+    }
+    
+?>
+
+<?php
 
 $mysqli = new mysqli("localhost", "root", "123456a@", "MyDatabase");
 
