@@ -1,4 +1,6 @@
 <html>
+
+
 <form action="" method = "post">
     tai khoan<input type="text" name = "username" > <br> <br>
     mat khau<input type="password" name = "password" >
@@ -15,10 +17,10 @@
         
     if($password == $repassword){
             $conn = mysqli_connect("localhost", "root","123456a@","MyDatabase");
-            $query = "insert into student (username, password) values ('$username', '$password')";
+            $query = "insert into student (username1, password1) values ('$username', '$password')";
             if (mysqli_query($conn, $query)){
                 echo "dk thanh cong";
-                header("location: login.php");
+                header("location: insert.php");
             } else {
                 echo "Lỗi: " . mysqli_error($conn);
             }
