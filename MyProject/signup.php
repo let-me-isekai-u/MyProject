@@ -17,7 +17,8 @@
     </form>
 
     <?php
-    
+    require('sqlCm.php');
+
     if(!isset($_POST['submit'])) return;
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -30,30 +31,14 @@
         $image_tmp = $_FILES['image']['tmp_name'];
         $target_dir = "./". $image_name;
         
-    if($password == $repassword){
-            $conn = mysqli_connect("localhost", "root","123456a@","MyDatabase");
-            $query = "insert into student (username, password) values ('$username', '$password')";
-            if (mysqli_query($conn, $query)){
-                echo "dk thanh cong";
-                header("location: login.php");
-            } else {
-                echo "Lỗi: " . mysqli_error($conn);
-            }
-    }else{
-        echo "mat khau nhap lai khong giong";       
-    }
-
-    if (move_uploaded_file($image_tmp, $target_dir)) {
-        $query = "INSERT INTO student ( name, image, email) VALUES ( '$name', '$target_dir', '$email')";
-        if (mysqli_query($conn, $query)){
-            echo "Thêm thành công";
-            header("location: login.php");
+        if (move_uploaded_file($image_tmp, $target_dir)) {
+            Signup($username, $password, $repassword, $name, $email, $target_dir);
         } else {
-            echo "Lỗi: " . mysqli_error($conn);
+            echo "Lỗi khi tải lên file ảnh.";
         }
-    } else {
-        echo "Lỗi khi tải lên file ảnh.";
-    }
+
+       
+      
     ?>
 
 </html>

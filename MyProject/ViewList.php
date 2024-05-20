@@ -16,16 +16,13 @@
         <form action="./logout.php" method = "post">
             <button type = "submit">log out</button>
         </form>
+
+        <form action="./FiveLast.php" method = get>
+            <button type = "submit">Xem 5 mạng gần đây đã tìm kiếm</button>
+        </form>
     <?php
-    try{
-        $conn = mysqli_connect("localhost", "root","123456a@","MyDatabase");
-        $rows = mysqli_query($conn, "select id, name, email, image from student order by id limit 20");
-        if(mysqli_num_rows($rows)==0){
-            $row=[];
-        }
-    }catch(Exception $e){
-        echo"Error". $e->getMessage();
-    }if(!empty($rows));
+    require('sqlCm.php');
+    $rows = View();
 
     foreach($rows as $student){
         $id = $student['id'];
@@ -33,7 +30,8 @@
         $email = $student['email'];
         $image = $student['image'];
     
-
+        
+        
         // $image_name = $_FILES['image']['name'];
         // $image_tmp = $_FILES['image']['tmp_name'];
       

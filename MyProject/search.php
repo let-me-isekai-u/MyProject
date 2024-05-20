@@ -1,6 +1,19 @@
 <?php
         if(isset($_GET['id']) && is_numeric($_GET['id'])){
             $id = $_GET['id'];
+            if(!isset($_COOKIE['search_history'])){
+                setcookie('search_history',json_encode([]), time() + (86400 * 30), "/"); 
+            
+            }
+            $searchHistory = json_decode($_COOKIE['search_history'], true);
+            if(count($searchHistory) == 5){
+                array_pop($searchHistory);
+
+            }
+            array_push($searchHistory, $id);
+
+            setcookie('search_history',json_encode($searchHistory), time() + (86400 * 30), "/");
+
             try{
                 $conn = mysqli_connect("localhost", "root","123456a@","MyDatabase");
                 $rows = mysqli_query($conn,"select * from student where id = $id");
